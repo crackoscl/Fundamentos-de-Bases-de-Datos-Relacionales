@@ -59,17 +59,17 @@ INNER JOIN usuario ON  transaccion.sender_user_id =  usuario.user_id
 WHERE sender_user_id = 2;
 
 SELECT nombre,currency_name FROM usuario
-INNER JOIN transaccion ON transaccion.sender_user_id = usuario.user_id
+INNER JOIN transaccion ON  usuario.user_id = transaccion.sender_user_id
 INNER JOIN moneda ON moneda.currency_id =  transaccion.moneda_id 
 WHERE user_id = 1;
 
 SELECT nombre, currency_name FROM moneda
-INNER JOIN transaccion ON transaccion.moneda_id = moneda.currency_id
+INNER JOIN transaccion ON  moneda.currency_id = transaccion.moneda_id
 INNER JOIN usuario ON  transaccion.sender_user_id =  usuario.user_id
 WHERE user_id = 4;
 
 -- Consulta para obtener todas las transacciones registradas
-SELECT transaction_id, sender.nombre AS sender_user, receiver.nombre AS receiver_user,moneda.currency_symbol, importe, transaction_date
+SELECT transaction_id, sender.nombre AS sender_user, receiver.nombre AS receiver_user,moneda.currency_name,moneda.currency_symbol, importe, transaction_date
 FROM transaccion
 INNER JOIN usuario AS sender ON  transaccion.sender_user_id= sender.user_id 
 INNER JOIN usuario AS receiver ON  transaccion.receiver_user_id = receiver.user_id 
